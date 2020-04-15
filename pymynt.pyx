@@ -5,7 +5,9 @@ import numpy as np
 cimport numpy as np  # for np.ndarray
 
 
-###########################################
+'''
+ np.ndarray <==> cv::Mat
+'''
 
 cdef Mat np2Mat3D(np.ndarray ary):
     assert ary.ndim == 3 and ary.shape[2] == 3, "ASSERT::3channel RGB only!!"
@@ -113,58 +115,9 @@ def np2Mat2np(nparray):
     return pyarr
 
 
-cdef class PyMat:
-    cdef Mat mat
-
-    def __cinit__(self, np_mat):
-        self.mat = np2Mat(np_mat)
-
-    def get_mat(self):
-        return Mat2np(self.mat)
-
-
-###########################################
-# cdef extern from "opencv2/core/core.hpp":
-#     cdef int    CV_WINDOW_AUTOSIZE
-#     cdef int CV_8UC3
-
-# cdef extern from "opencv2/core/core.hpp" namespace "cv":
-#     cdef cppclass Mat:
-#         Mat() except +
-#         void create(int, int, int)
-#         void* data
-
-cdef extern from "opencv2/highgui/highgui.hpp" namespace "cv":
-    void namedWindow(const string, int flag)
-    void imshow(const string, Mat)
-    int    waitKey(int delay)
-
-# cdef void ary2cvMat(np.ndarray ary, Mat& out):
-#     assert(ary.ndim==3 and ary.shape[2]==3, "ASSERT::3channel RGB only!!")
-#     ary = np.dstack((ary[...,2], ary[...,1], ary[...,0])) #RGB -> BGR
-
-#     cdef np.ndarray[np.uint8_t, ndim=3, mode = 'c'] np_buff = np.ascontiguousarray(ary, dtype = np.uint8)
-#     cdef unsigned int* im_buff = <unsigned int*> np_buff.data
-#     cdef int r = ary.shape[0]
-#     cdef int c = ary.shape[1]
-#     out.create(r, c, CV_8UC3)
-#     memcpy(out.data, im_buff, r*c*3)
-
-
-cdef showMat(Mat m):
-    windowname = "123".encode('UTF-8')
-    namedWindow(windowname, CV_WINDOW_AUTOSIZE)
-    imshow(windowname, m)
-    waitKey(1000)
-
-
-def openImage(pil_img):
-    cdef Mat m
-    m = np2Mat(np.array(pil_img))
-    showMat(m)
-
-
-##########################################
+'''
+ Application
+'''
 
 def init_camera(depth_mode='gray'):
     depth_mode_enum = {'raw': 0, 'gray': 1, 'colorful': 2}
@@ -184,8 +137,3 @@ def get_left_image():
 def get_right_image():
     m = getRightImage()
     return Mat2np(m)[:,:,::-1]
-
-
-def show_depth_image():
-    m = getDepthImage()
-    showMat(m)

@@ -1,15 +1,11 @@
 #include <iostream>
 
 #define WITH_OPENCV
-#include <opencv2/highgui/highgui.hpp>
+// #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include <mynteyed/camera.h>
 #include <mynteyed/utils.h>
-
-#include "util/cam_utils.h"
-#include "util/counter.h"
-#include "util/cv_painter.h"
 
 MYNTEYE_USE_NAMESPACE
 
@@ -100,17 +96,13 @@ int init(int depth_mode) {
 }
 
 int main(){
-  init(1);
-  cv::Mat depth = getDepthImage();
-
-  std::cout << "Press ESC/Q on Windows to terminate" << std::endl;
-
-
+  // init(1);
+  // cv::Mat depth = getDepthImage();
+  // std::cout << "Press ESC/Q on Windows to terminate" << std::endl;
   // cv::namedWindow("depth");
   // cv::imshow("depth", depth);
   // cv::waitKey(-1);
-
   // cv::destroyAllWindows();
-  cam.Close();
+  // cam.Close();
   return 0;
 }

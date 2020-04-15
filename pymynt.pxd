@@ -3,7 +3,6 @@ import numpy as np
 
 # For cv::Mat usage
 cdef extern from "opencv2/core/core.hpp":
-  cdef int  CV_WINDOW_AUTOSIZE
   cdef int CV_8UC3
   cdef int CV_8UC1
   cdef int CV_16UC1
@@ -38,12 +37,6 @@ cdef extern from "mynteyed/device/types.h" namespace "mynteyed::DepthMode":
   cdef DepthMode DEPTH_RAW
   cdef DepthMode DEPTH_GRAY
   cdef DepthMode DEPTH_COLORFUL
-
-# cdef extern from "mynteyed/device/types.h" namespace "mynteyed::DepthMode":
-#     cdef enum DepthMode "mynteyed::DepthMode":
-#       DEPTH_RAW      = 0
-#       DEPTH_GRAY     = 1
-#       DEPTH_COLORFUL = 2
 
 cdef extern from "wrapper.cpp":
   int init(int depth_mode)
