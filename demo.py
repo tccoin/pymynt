@@ -6,7 +6,6 @@ pymynt.init_camera()
 while True:
     depth = pymynt.get_depth_image()
     left = pymynt.get_left_image()
-    right = pymynt.get_right_image()
 
     if left.size>10:
         cv2.imshow('left', left)
