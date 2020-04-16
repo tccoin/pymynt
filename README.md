@@ -21,6 +21,6 @@ right = pymynt.get_right_image()
 # for more options, you can edit the wrapper directly and rebuild pymynt
 ```
 
-## How it works?
+## How it works
 - Cython is used to call the opencv functions.
 - `cv::Mat` is converted to numpy array by[wangzheqie/cpp_python_convert](https://github.com/wangzheqie/cpp_python_convert).
